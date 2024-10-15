@@ -24,3 +24,17 @@ const reverseList = (head) => {
 
     return head;
 };
+
+
+const reverseListRecursive = head => {
+    if (head === null || head.next === null) {
+        return head;
+    }
+
+    const reversedListHead = reverseListRecursive(head.next);
+
+    head.next.next = head;
+    head.next = null;
+
+    return reversedListHead;
+}
