@@ -30,3 +30,27 @@ const isPalindrome = str => {
 
     return true;
 }
+
+// without extra memory
+const isPalindrome2 = str => {
+    let left = 0;
+    let right = str.length - 1;
+
+    while (left < right) {
+        while (left < right && !isAlphanumeric(str[left])) {
+            left++;
+        }
+        while (left < right && !isAlphanumeric(str[right])) {
+            right--;
+        }
+
+        if (str[left] !== str[right]) {
+            return false;
+        }
+
+        left++;
+        right--;
+    }
+
+    return true;
+}
