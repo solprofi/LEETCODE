@@ -37,3 +37,33 @@ const copyRandomList = head => {
 
   return map.get(head);
 }
+
+// O(1) space O(N) time
+const copyRandomList2 = head => {
+  let temp = head;
+
+  while(temp) {
+    const newNode = new _Node(temp.val, temp.next);
+    temp.next = newNode;
+    temp = temp.next.next;
+  }
+
+  temp = head;
+  while(temp) {
+    temp.next.random = temp.random ? temp.random.next : null;
+    temp = temp.next.next;
+  }
+
+  const dummy = new _Node();
+  let res = dummy;
+  temp = head;
+
+  while(temp) {
+    res.next = temp.next;
+    temp.next = temp.next.next;
+    res = res.next;
+    temp = temp.next;
+  }
+
+  return dummy.next;
+}
