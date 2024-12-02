@@ -17,3 +17,17 @@ const swapPairs = head => {
 
   return dummy.next;
 }
+
+const swapRecursive = head => {
+  if (!head || !head.next) {
+    return head;
+  }
+
+  const firstNode = head;
+  const secondNode = head.next;
+
+  firstNode.next = swapRecursive(secondNode.next);
+  secondNode.next = firstNode;
+
+  return secondNode;
+}
