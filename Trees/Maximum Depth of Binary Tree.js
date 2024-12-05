@@ -49,3 +49,26 @@ const maxDepth2 = root => {
 
   return level;
 }
+
+// Iterative DFS with stack
+const maxDepth3 = root => {
+  if (!root) {
+    return 0;
+  }
+
+  const stack = [[root, 1]];
+  let res = 1;
+
+  while(stack.length) {
+    const [node, depth] = stack.pop();
+
+    if (node) {
+      res = Math.max(res, depth);
+
+      stack.push([node.right, depth + 1]);
+      stack.push([node.left, depth + 1]);
+    }
+  }
+
+  return res;
+}
