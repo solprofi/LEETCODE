@@ -23,4 +23,6 @@ const isValidBST = root => {
     return isValid(node.left, left, node.val) &&
       isValid(node.right, node.val, right);
   }
+
+  return isValid(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
 }
