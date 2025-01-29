@@ -52,3 +52,17 @@ const isPalindrome2 = x => {
 
   return true;
 }
+
+
+// compare reverted halves
+const isPalindrome3 = x => {
+  if (x < 0 || (x !== 0 && x % 10 === 0)) {
+    return false;
+  }
+
+  let revertedHalf = 0;
+  while(revertedHalf < x) {
+    revertedHalf = revertedHalf * 10 + x % 10;
+    x = Math.floor(x / 10);
+  }
+}
