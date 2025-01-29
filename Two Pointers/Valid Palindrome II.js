@@ -27,3 +27,30 @@ const validPalindrome = s => {
 
    return true;
 }
+
+
+
+
+// support K mismatches
+const isValidKPalindrome = (str, start, end, mismatchCount) => {
+  let left = start;
+  let right = end;
+
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      if (mismatchCount === 0) {
+        return false;
+      }
+
+      return isValidKPalindrome(str, left + 1, right, mismatchCount - 1) ||
+        isValidKPalindrome(str, left, right - 1, mismatchCount - 1)
+    }
+
+    left++;
+    right--;
+  }
+}
+
+const isValidPalindrome = (s, k) => {
+  return isValidKPalindrome(s, 0, s.length - 1, k);
+}
