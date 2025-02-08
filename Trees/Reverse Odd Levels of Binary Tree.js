@@ -47,3 +47,25 @@ const reverseOddLevels = root => {
 
   return root;
 }
+
+// dfs
+const reverse = root => {
+  const dfs = (leftChild, rightChild, level) => {
+    // Since it's a perfect tree, we can only check for one child
+    if (!leftChild) {
+      return;
+    }
+
+    // if level is odd, swap values
+    if (level % 2 === 1) {
+      [leftChild.val, rightChild.val] = [rightChild.val, leftChild.val];
+    }
+
+    dfs(leftChild.left, rightChild.right, level + 1);
+    dfs(rightChild.left, leftChild.right, level + 1);
+  }
+
+  dfs(root.left, root.right, 1);
+
+  return root;
+}
