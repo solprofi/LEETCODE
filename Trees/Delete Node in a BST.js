@@ -26,7 +26,7 @@ const deleteNode = function(root, key) {
   } else if (key > root.val) {
     root.right = deleteNode(root.right, key);
   } else {
-    //   node is found. If the is only one child, return it
+    //   node is found. If the node has only one child, return it
     if (!root.left) {
       return root.right;
     } else if (!root.right) {
@@ -40,7 +40,7 @@ const deleteNode = function(root, key) {
     }
 
     root.val = curr.val;
-    //   the successor node is in the right place, not remove it
+    //   the successor node is in the right place, now remove it
     root.right = deleteNode(root.right, curr.val);
   }
 
