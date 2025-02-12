@@ -82,3 +82,77 @@ const postOrder1Stack = root => {
 
   return result;
 }
+
+const reversePath = (start, end) => {
+  if (start === end) {
+    return;
+  }
+
+  let prev = start;
+  let curr = start.right;
+
+  while (prev !== end) {
+    let next = curr.right;
+    curr.right = prev;
+    prev = curr;
+    curr = next;
+  }
+}
+
+const collectReversedPath = (start, end, res) => {
+  reversePath(start, end);
+
+  let temp = end;
+
+  while (true) {
+    res.push(temp.val);
+
+    if (temp === start) {
+      break;
+    }
+
+    temp = temp.right;
+  }
+
+  reversePath(end, start);
+}
+
+const findPredecessor = node => {
+  let temp = node.left;
+
+  while (temp.right && temp.right !== node) {
+    temp = temp.right;
+  }
+
+  return temp;
+}
+
+const postorderMorris = root => {
+  if (!root) {
+    return [];
+  }
+
+  const res = [];
+
+  const dummy = new TreeNode(null, root);
+  let curr = dummy;
+
+  while (curr) {
+    if (!curr.left) {
+      curr = curr.right;
+    } else {
+      const pred = findPredecessor(curr);
+
+      if (!pred.right) {
+        pred.right = curr;
+        curr = curr.left;
+      } else {
+        pred.right = null;
+        collectReversedPath(curr.left, pred, res);
+        curr = curr.right;
+      }
+    }
+  }
+
+  return res;
+}

@@ -49,3 +49,40 @@ const preorderIterative = root => {
 
   return result;
 }
+
+const findPredecessor = node => {
+  let temp = node.left;
+
+  while (temp.right && temp.right !== node) {
+    temp = temp.right;
+  }
+
+  return temp;
+}
+
+// Morris traversal
+const preorderMorris = root => {
+  const res = [];
+
+  let curr = root;
+
+  while (curr) {
+    if (!root.left) {
+      res.push(curr.val);
+      curr = curr.right;
+    } else {
+      const pred = findPredecessor(curr);
+
+      if (!pred.right) {
+        pred.right = curr;
+        res.push(curr.val);
+        curr = curr.left;
+      } else {
+        pred.right = null;
+        curr = curr.right;
+      }
+    }
+  }
+
+  return res;
+}

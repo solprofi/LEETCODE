@@ -48,3 +48,40 @@ const inorderTraversalIterative = root => {
 
   return result;
 }
+
+// Morris traversal
+const findPredecessor = node => {
+  let temp = node.left;
+
+  while (temp.right && temp.right !== node) {
+    temp = temp.right;
+  }
+
+  return temp;
+}
+
+const inorderMorris = root => {
+  const res = [];
+  let curr = root;
+
+  while (curr) {
+    if (!curr.left) {
+      res.push(curr.val);
+      curr = curr.right;
+    } else {
+      const pred = findDepth(curr);
+
+      if (!pred.right) {
+        pred.right = curr;
+        curr = curr.left;
+      } else {
+        pred.right = null;
+        res.push(curr.val);
+        curr = curr.right;
+      }
+    }
+  }
+
+  return res;
+}
+
