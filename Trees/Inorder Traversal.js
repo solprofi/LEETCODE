@@ -66,15 +66,20 @@ const inorderMorris = root => {
 
   while (curr) {
     if (!curr.left) {
+      // we're at the leftmost node, process the root
       res.push(curr.val);
       curr = curr.right;
     } else {
       const pred = findDepth(curr);
 
       if (!pred.right) {
+        // we haven't been to the left yet
+        // preorder visit added here
         pred.right = curr;
         curr = curr.left;
       } else {
+        // the left subtree is already processed
+        // inorder visit added here
         pred.right = null;
         res.push(curr.val);
         curr = curr.right;

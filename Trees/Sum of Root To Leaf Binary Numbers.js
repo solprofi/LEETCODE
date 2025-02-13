@@ -31,3 +31,52 @@ const sumRootToLeaf = root => {
 
   return res;
 }
+
+// MORRIS Traversal
+const sumRootToLeafMorris = root => {
+  let res = 0;
+  let curr = root;
+  let pred;
+  let currPathSum = 0;
+
+  while(curr) {
+    if (!curr.left) {
+      currPathSum = (currPathSum << 1) | curr.val;
+
+      if (!curr.right) {
+        res += currPathSum;
+      }
+
+      curr = curr.right;
+    } else {
+      pred = curr.left;
+      let step = 1;
+
+      while (pred.right && pred.right !== curr) {
+        pred = pred.right;
+        step++;
+      }
+
+      if (!pred.right) {
+        currPathSum = (currPathSum << 1) | curr.val;
+
+        pred.right = curr;
+        curr = curr.left;
+      } else {
+        pred.right = null;
+
+        if (!pred.left) {
+          res += currPathSum;
+        }
+
+        for (let i = 0; i < step; i++) {
+          currPathSum >>= 1;
+        }
+
+        curr = curr.right;
+      }
+    }
+  }
+
+  return res;
+}
